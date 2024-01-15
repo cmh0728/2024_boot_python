@@ -1,16 +1,13 @@
-import sys
+from sys import*
 
+first_number = int(input('First number : '))
+second_number = int(input('Second number : '))
 
-# 다양한 입출력 방법
+quotient = first_number // second_number
+remainder = first_number % second_number
 
-base_number = int(input("Input base number : "))
-exponent_number = int(input("Input exponent number : "))
+print(f'몫은 {quotient} 나머지는 {remainder}입니다.')
 
-# f-string
-print(f'base_number : {base_number}, exponent_number : {exponent_number}, result : {base_number**exponent_number}')
+#divmod함수를 이용해서 몫과 나머지를 구할 수 있다. 
 
-# format function
-# print('밑은 {}, 지수는 {}, 결과값은 {}'.format(*args: base_number, exponent_number, pow(base_number,exponent_number)))
-
-#c like(c와 유사한 방법)
-print('밑은 %d, 지수는 %d, 결과 값은 %d' %(base_number, exponent_number, pow(base_number,exponent_number)))
+print(f'몫은 {divmod(first_number,second_number)[0]} 나머지는 {divmod(first_number,second_number)[1]}입니다.')
