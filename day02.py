@@ -1,5 +1,8 @@
 import sys
 
+
+# 다양한 입출력 방법
+
 base_number = int(input("Input base number : "))
 exponent_number = int(input("Input exponent number : "))
 
