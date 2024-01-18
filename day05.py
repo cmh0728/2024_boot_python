@@ -66,8 +66,19 @@
 
 #9.3 어떤 함수가 호출되면, start를 , 끝나면 end를 출력하는 test 데커레이터를 정의
 
-# def square_it(func):
-#     def new_function(*args, **kwargs):
-#         result = func(*args,**kwargs)
-#         return result*result
-#     return new_function
+def test(func):
+    def wrapper(*args, **kwargs):
+        print('start')
+        result = func(*args, **kwargs)
+        print('end')
+        return result
+    return wrapper
+
+# 데커레이터를 사용할 함수 정의
+@test
+def my_function():
+    # print('함수 내용')
+    return
+
+# 함수 호출
+my_function()
