@@ -1,37 +1,19 @@
 import sys
-input = sys.stdin.readline
 
-class boot_camp:
-    def __init__(self):
-        pass
+li = [[1,5,3],[2,5,7],[5,3,5]]
+chk = [False]*3
+m = sys.maxsize
 
-    def  prime_number(self):
-        return 0
-                
-    
-def main():
-    try:
-        number = int(input())
+def backtracking(row, score):
+	if row == 4: # 재귀함수를 마치는 조건
+		if score < m:
+			return
+	for i in range(1,4):
+		if chk[i] == False: # 백트래킹에서의 한정조건
+			chk[i] = True
+			backtracking(row+1, score + li[row][i])
+			chk[i] = False
+	return 
 
-    except: 
-        print("error")
-
-if __name__ == "__main__":
-    main()
-
-# 1 1 2 3 5 8 13 fibonachi    
-    
-def fibonachi_1(n):
-    if n == 1:
-        return 1
-    elif n == 2:
-        return 1
-    else:
-        return fibonachi_1(n-1) + fibonachi_1(n-2)
-
-def fibonachi_2(n):
-    dp=[0]*(n+1)
-    dp[1] =1
-    dp[2] =1
-    for i in range(3,n+1):
-        dp[i] = dp[i-1] + dp[i-2]
+backtracking(1,0)
+print(m)
