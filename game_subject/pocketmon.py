@@ -11,24 +11,80 @@ class pocketmon():
         self.screen = pygame.display.set_mode((1280,720)) # 화면 크기 설정
         self.clock = pygame.time.Clock()
         pygame.display.set_caption("pocketmon game") #창 이름 설정
-        self.running = True
+        self.running = True #게임 triger설정
         self.dt = 0
+        self.waiting = True
+
+
+    def first_page(self):
+        self.screen.fill("black")  # 배경 색
+        self.draw_text("Welcome to the Pocketmon game!", 80, self.screen.get_width() / 2, self.screen.get_height() / 4)
+        self.draw_text("Press 'F2' key to know 'How to play'", 35, self.screen.get_width() / 2, self.screen.get_height() * 3 / 4)
+        self.draw_text("Press 'F1' key to start the game", 35, self.screen.get_width() / 2, self.screen.get_height() / 2)
+
+        pygame.display.flip()
+
+        self.waiting = True
+        while self.waiting:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    sys.exit()
+                keys = pygame.key.get_pressed()
+                if keys[pygame.K_F1]:  # F1 key 누르면 시작
+                    self.waiting = False  #대기 루프 탈출 trigger
+                if keys[pygame.K_F2]:
+                    self.How_to_play_game()
+
+    def How_to_play_game(self):
+        self.screen.fill("black")
+        self.draw_text("Use 'W','A','D','S' keys to move player",50, self.screen.get_width() / 2, self.screen.get_height() / 4)
+        # 부가 게임 설명 필요
+        
+        self.draw_text("Press 'F1' key to start the game", 35, self.screen.get_width() / 2, self.screen.get_height() / 2)
+
+        
+        pygame.display.flip()
+
+        self.waiting = True
+        while self.waiting:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    sys.exit()
+                keys = pygame.key.get_pressed()
+                if keys[pygame.K_F1]:  # F1 key 누르면 시작
+                    self.waiting = False  #대기 루프 탈출 trigger
+
+    def draw_text(self,text,size,x,y):
+        font = pygame.font.Font(None, size)
+        text_surface=font.render(text, True,(255,255,255))
+        text_rect=text_surface.get_rect()
+        text_rect.midtop=(x,y)
+        self.screen.blit(text_surface, text_rect)
+
+    def game_over(self):
+        self.draw_text("GAME OVER",  48, self.screen.get_width()/ 2, self.screen.get_height() / 2)
+        pygame.display.flip()
+        pygame.time.wait(3000)
+        pygame.quit()
+        sys.exit()
     
     def run_game(self):
+        self.first_page()
         player_pos = pygame.Vector2(self.screen.get_width() / 2, self.screen.get_height() / 2)
 
-        while self.running:
-            # poll for events
-            # pygame.QUIT event means the user clicked X to close your window
+        while self.running: 
+            #탈출조건 : x누르기
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     self.running = False
 
-            # fill the self.screen with a color to wipe away anything from last frame
-            self.screen.fill("purple")
+            self.screen.fill("black") # 배경 색
 
-            pygame.draw.circle(self.screen, "red", player_pos, 40)
+            pygame.draw.circle(self.screen, "white", player_pos, 10) # 플레이어 색
 
+            #방향키로 플레이어(가운데 점) 조종
             keys = pygame.key.get_pressed()
             if keys[pygame.K_w]:
                 player_pos.y -= 300 * self.dt
@@ -38,20 +94,24 @@ class pocketmon():
                 player_pos.x -= 300 * self.dt
             if keys[pygame.K_d]:
                 player_pos.x += 300 * self.dt
-
+            # if keys[pygame.K_TAB]: #>>나중에 설정
+            #     self.game_over()
             # flip() the display to put your work on self.screen
             pygame.display.flip()
 
-            # limits FPS to 60
+            # 프레임 조정
             # self.dt is delta time in seconds since last frame, used for framerate-
             # independent physics.
             self.dt = self.clock.tick(60) / 1000
 
         pygame.quit()
 
+# class first_page():
+
+
 def main():
     game_class = pocketmon()
-    game_class.run_game()
+    game_class.run_game() # 게임실행
 
 if __name__ == "__main__":
     main()
