@@ -142,10 +142,49 @@
 # person2.attack(person1)
 
 # ----------------------------------------------------------------------------- #
+class FlyingMixin:
+    def fly(self):
+        return f"{self.name}이(가) 하늘을 날아갑니다."
+class SwimmingMixin:
+    def swim(self):
+        return f"{self.name}이(가) 바닷속을 헤엄칩니다"
 
+class Poketmon:
+    def __init__(self,name):
+        self.name = name
+    
+    def attack(self):
+        return "공격" # >> return이 없으면 NOne을 반환하기 때문에 , 이런식으로 해주는게 방지할 수 있음    
+    
+    def get_name(self):
+        print("inside getter")
+        return self.name
+    
+    def set_name(self,new_name):
+        self.name = new_name
+class Charizard(Poketmon, FlyingMixin):
+   pass
+     
 
+class Gyarados(Poketmon , SwimmingMixin):
+    pass
+g1 = Gyarados('갸라도스')
+c1 = Charizard("리자몽")
+# print(c1.fly())
+# print(g1.swim())
+# print(c1.attack())
 
+# g1.name = "잉어킹"
+# print(g1.swim())
+
+print(g1.get_name())
+g1.set_name("잉어킹")
+print(g1.get_name())
 # ----------------------------------------------------------------------------- #
+
+# 시험 >> 중간중간 commit을 해야됨. 시험범위 : 다음주 오전까지 배운 내용(모듈). , 월요일 오후 시험.(22일)
+# 과제 : 포켓몬 게임 만들기 1. 기획(등장인물, 캐릭터, 공격, 기능, 공격순서, 진화 등등 ), 2.창열어서 텍스트 기반으로,, 3. save파일 등등  
+
 # ----------------------------------------------------------------------------- #
 # ----------------------------------------------------------------------------- #
 # ----------------------------------------------------------------------------- #
