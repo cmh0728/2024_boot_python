@@ -2,9 +2,17 @@ import pygame
 import sys
 from pygame.locals import * 
 
+class Pokemon:
+    def __init__(self, name, type, health, attack):
+        self.name = name
+        self.type = type
+        self.health = health
+        self.attack = attack
 
+    def attack(self, other):
+        other.health -= self.attack
 
-class pocketmon():
+class pocketmon_game():
     def __init__(self):
         #pygame setup
         pygame.init()
@@ -15,12 +23,29 @@ class pocketmon():
         self.dt = 0
         self.waiting = True
 
+        self.bulbasaur = Pokemon("이상해씨", ["풀", "독"], 100, 20)
+        self.charmander = Pokemon("파이리", ["불꽃"], 100, 20)
+        self.squirtle = Pokemon("꼬부기", ["물"], 100, 20)
+        self.caterpie = Pokemon("캐터피", ["벌레", "풀"], 100, 20)
+        self.pidgey = Pokemon("구구", ["노말"], 100, 20)
+        self.rattata = Pokemon("꼬렛", ["노말"], 100, 20)
+        self.pikachu = Pokemon("피카츄", ["전기"], 100, 20)
+        self.oddish = Pokemon("모다피", ["풀"], 100, 20)
+        self.chikorita = Pokemon("치코리타", ["풀"], 100, 20)
+        self.drowzee = Pokemon("마자용", ["에스퍼"], 100, 20)
+
+        self.pokemons = [self.bulbasaur, self.charmander, self.squirtle, self.caterpie, self.pidgey, self.rattata, self.pikachu, self.oddish, self.chikorita, self.drowzee]
+
 
     def first_page(self):
         self.screen.fill("black")  # 배경 색
-        self.draw_text("Welcome to the Pocketmon game!", 80, self.screen.get_width() / 2, self.screen.get_height() / 4)
-        self.draw_text("Press 'F2' key to know 'How to play'", 35, self.screen.get_width() / 2, self.screen.get_height() * 3 / 4)
-        self.draw_text("Press 'F1' key to start the game", 35, self.screen.get_width() / 2, self.screen.get_height() / 2)
+        self.start_image = pygame.image.load('start_poketmon.jpg')
+        self.start_image = pygame.transform.scale(self.start_image, (self.screen.get_width(), self.screen.get_height()))
+
+        self.screen.blit(self.start_image, (0, 0))
+        # self.draw_text("Welcome to the Pocketmon game!", 80, self.screen.get_width() / 2, self.screen.get_height() / 4)
+        self.draw_text("Press 'F2' key to know 'How to play '           Press 'F1' key to start the game", 45, self.screen.get_width() / 2, self.screen.get_height() * 8 / 9)
+        # self.draw_text("Press 'F1' key to start the game", 35, self.screen.get_width() / 2, self.screen.get_height() / 2)
 
         pygame.display.flip()
 
@@ -36,12 +61,13 @@ class pocketmon():
                 if keys[pygame.K_F2]:
                     self.How_to_play_game()
 
-    def How_to_play_game(self):
-        self.screen.fill("black")
+    def How_to_play_game(self): #게임에 대한 설명
+        self.screen.fill("white")
         self.draw_text("Use 'W','A','D','S' keys to move player",50, self.screen.get_width() / 2, self.screen.get_height() / 4)
+        self.draw_text("Choose multiple options to fight!",50,self.screen.get_width()/2, self.screen.get_height()*2/4)
         # 부가 게임 설명 필요
         
-        self.draw_text("Press 'F1' key to start the game", 35, self.screen.get_width() / 2, self.screen.get_height() / 2)
+        self.draw_text("Press 'F1' key to start the game", 35, self.screen.get_width() / 2, self.screen.get_height() *3/4)
 
         
         pygame.display.flip()
@@ -58,7 +84,7 @@ class pocketmon():
 
     def draw_text(self,text,size,x,y):
         font = pygame.font.Font(None, size)
-        text_surface=font.render(text, True,(255,255,255))
+        text_surface=font.render(text, True,(0,0,0)) #글자 검정색으로 설정.
         text_rect=text_surface.get_rect()
         text_rect.midtop=(x,y)
         self.screen.blit(text_surface, text_rect)
@@ -106,11 +132,11 @@ class pocketmon():
 
         pygame.quit()
 
-# class first_page():
+
 
 
 def main():
-    game_class = pocketmon()
+    game_class = pocketmon_game()
     game_class.run_game() # 게임실행
 
 if __name__ == "__main__":
