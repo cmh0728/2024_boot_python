@@ -98,9 +98,15 @@ class pocketmon_game():
     
     def run_game(self):
         self.first_page()
-        player_pos = pygame.Vector2(self.screen.get_width() / 2, self.screen.get_height() / 2)
+        self.grass_image_origin = pygame.image.load('background_image.png')
+        self.player_image = pygame.image.load('player.png')
+        
+
+        # player_pos = pygame.Vector2(self.screen.get_width() / 2, self.screen.get_height() / 2)
+        player_pos = pygame.Vector2(self.screen.get_width() / 2 - 25, self.screen.get_height() / 2-25)
 
         while self.running: 
+
             #탈출조건 : x누르기
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -108,7 +114,11 @@ class pocketmon_game():
 
             self.screen.fill("black") # 배경 색
 
-            pygame.draw.circle(self.screen, "white", player_pos, 10) # 플레이어 색
+            # pygame.draw.circle(self.screen, "white", player_pos, 10) # 플레이어 색
+            self.grass_image = pygame.transform.scale(self.grass_image_origin, (self.screen.get_width(), self.screen.get_height()))
+
+            self.screen.blit(self.grass_image, (0, 0))
+            self.screen.blit(self.player_image, player_pos)
 
             #방향키로 플레이어(가운데 점) 조종
             keys = pygame.key.get_pressed()
