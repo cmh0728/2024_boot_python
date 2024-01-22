@@ -105,7 +105,7 @@ class pocketmon_game():
         basic_battle_screen = self.screen.copy()
         
         #text line
-        self.draw_text("Press 'F1' key to fight               Press 'F2' key to run away", 45, self.screen.get_width() / 2, self.screen.get_height() * 8.3 / 9)
+        self.draw_text("Press '1' key to fight               Press '2' key to run away", 45, self.screen.get_width() / 2, self.screen.get_height() * 8.3 / 9)
 
         pygame.display.flip()
 
@@ -118,13 +118,13 @@ class pocketmon_game():
                     pygame.quit()
                     sys.exit()
                 keys = pygame.key.get_pressed()
-                if keys[pygame.K_F2]:  #탈출옵션
+                if keys[pygame.K_2]:  #탈출옵션
                     # 이전 화면을 복원
                     self.screen.blit(self.prev_screen, (0, 0))
                     pygame.display.flip()
                     self.waiting = False  #대기 루프 탈출 trigger
                     return prev_screen
-                if keys[pygame.K_F1]: # 전투옵션
+                if keys[pygame.K_1]: # 전투옵션
                     self.random_number = random.randint(1, 5)
                     self.battle_figth_option(self.random_number)
                     # print(random_number)
