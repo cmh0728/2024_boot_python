@@ -151,7 +151,7 @@ class pocketmon_game():
 
         print(random_number)
 
-        # random_number = 2
+        random_number = 7
         if random_number == 1:
             
             print(f"poketmon is {self.wild_pokemons[0][0]}")
@@ -200,9 +200,13 @@ class pocketmon_game():
         elif random_number == 7: # muche >> gameover
             print(f"poketmon is {self.wild_pokemons[3][0]}")
             self.bulbassur_origin = pygame.image.load('muche.png')
+            self.draw_text("we cannot win muche!! , game over!!", 55, self.screen.get_width() / 2, self.screen.get_height() * 6.8 / 9)
+    
             self.bulbassur_image = pygame.transform.scale(self.bulbassur_origin, (self.screen.get_width()/3, self.screen.get_height()/3))
 
             self.screen.blit(self.bulbassur_image, self.wild_poketmon_pos)
+
+            self.game_over()
 
 
         #간단한 배틀 화면 구현 및 전투 로직 구현, 불 > 풀 , 전기 = 불, 물> 불, 전기 > 물 , 물 = 풀 등의 로직으로 전투 구현, 
