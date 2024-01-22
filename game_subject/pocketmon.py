@@ -36,9 +36,9 @@ class pocketmon_game():
         bulbasaur = ["Bulbasaur", "Grass",  100, 20]
         charmander = ["Charmander", "Fire", 100, 20]
         squirtle = ["Squirtle", "Water", 100, 20]
-        caterpie = ["Caterpie", "Grass", 100, 20]
+        muche = ["muche", "espor", 10000, 200]
         #포켓몬 추가 란
-        self.wild_pokemons = [bulbasaur, charmander, squirtle, caterpie]
+        self.wild_pokemons = [bulbasaur, charmander, squirtle, muche]
         self.len_of_poketmon = len(self.wild_pokemons)
 
 
@@ -150,7 +150,7 @@ class pocketmon_game():
 
         print(random_number)
 
-        random_number = 1
+        # random_number = 2
         if random_number == 1:
             print(f"poketmon is {self.wild_pokemons[0][0]}")
             self.bulbassur_origin = pygame.image.load('bulbassur.png')
@@ -161,12 +161,24 @@ class pocketmon_game():
 
         elif random_number == 2:
             print(f"poketmon is {self.wild_pokemons[1][0]}")
+            self.bulbassur_origin = pygame.image.load('charmander.png')
+            self.bulbassur_image = pygame.transform.scale(self.bulbassur_origin, (self.screen.get_width()/3, self.screen.get_height()/3))
+
+            self.screen.blit(self.bulbassur_image, self.wild_poketmon_pos)
 
         elif random_number == 3:
             print(f"poketmon is {self.wild_pokemons[2][0]}")
+            self.bulbassur_origin = pygame.image.load('squirtle.png')
+            self.bulbassur_image = pygame.transform.scale(self.bulbassur_origin, (self.screen.get_width()/3, self.screen.get_height()/3))
 
-        elif random_number == 4:
+            self.screen.blit(self.bulbassur_image, self.wild_poketmon_pos)
+
+        elif random_number == 4: # muche >> gameover
             print(f"poketmon is {self.wild_pokemons[3][0]}")
+            self.bulbassur_origin = pygame.image.load('muche.png')
+            self.bulbassur_image = pygame.transform.scale(self.bulbassur_origin, (self.screen.get_width()/3, self.screen.get_height()/3))
+
+            self.screen.blit(self.bulbassur_image, self.wild_poketmon_pos)
 
 
         #간단한 배틀 화면 구현 및 전투 로직 구현, 불 > 풀 , 전기 = 불, 물> 불, 전기 > 물 , 물 = 풀 등의 로직으로 전투 구현, 
