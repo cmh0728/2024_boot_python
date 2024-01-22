@@ -9,6 +9,7 @@ class Pokemon:
         self.type = type
         self.health = health
         self.attack = attack
+        self.player_health = 3
 
     def attack(self, other):
         other.health -= self.attack
@@ -89,7 +90,7 @@ class pocketmon_game():
         text_rect.midtop=(x,y)
         self.screen.blit(text_surface, text_rect)
 
-    def game_over(self):
+    def game_over(self): #player hp == 0 -- > game over
         self.draw_text("GAME OVER",  48, self.screen.get_width()/ 2, self.screen.get_height() / 2)
         pygame.display.flip()
         pygame.time.wait(3000)
@@ -118,13 +119,13 @@ class pocketmon_game():
                     pygame.quit()
                     sys.exit()
                 keys = pygame.key.get_pressed()
-                if keys[pygame.K_2]:  #탈출옵션
+                if keys[pygame.K_2]:  #탈출옵션(2번 선택)
                     # 이전 화면을 복원
                     self.screen.blit(self.prev_screen, (0, 0))
                     pygame.display.flip()
                     self.waiting = False  #대기 루프 탈출 trigger
                     return prev_screen
-                if keys[pygame.K_1]: # 전투옵션
+                if keys[pygame.K_1]: # 전투옵션(1번을 선택ㅈ)
                     self.random_number = random.randint(1, 5)
                     self.battle_figth_option(self.random_number)
                     # print(random_number)
