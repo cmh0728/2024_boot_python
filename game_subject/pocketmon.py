@@ -25,6 +25,8 @@ class pocketmon_game():
         self.waiting = True
         self.total_movement = 0  # 플레이어의 총 이동 거리를 추적하고, 전투상황 발생
         self.player_health = 3
+        self.wild_poketmon_pos = pygame.Vector2(self.screen.get_width() / 2 + 230, self.screen.get_height() / 2-350)
+
 
 
         #player의 포켓몬 >> 피카츄 
@@ -148,8 +150,14 @@ class pocketmon_game():
 
         print(random_number)
 
+        random_number = 1
         if random_number == 1:
             print(f"poketmon is {self.wild_pokemons[0][0]}")
+            self.bulbassur_origin = pygame.image.load('bulbassur.png')
+            self.bulbassur_image = pygame.transform.scale(self.bulbassur_origin, (self.screen.get_width()/3, self.screen.get_height()/3))
+
+            self.screen.blit(self.bulbassur_image, self.wild_poketmon_pos)
+
 
         elif random_number == 2:
             print(f"poketmon is {self.wild_pokemons[1][0]}")
