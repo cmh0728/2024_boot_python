@@ -145,18 +145,20 @@ class pocketmon_game():
         print(random_number)
 
         if random_number == 1:
-            print(f"poketmon is {self.wild_pokemons[0]}")
+            print(f"poketmon is {self.wild_pokemons[0][0]}")
+
         elif random_number == 2:
-            print(f"poketmon is {self.wild_pokemons[1]}")
+            print(f"poketmon is {self.wild_pokemons[1][0]}")
 
         elif random_number == 3:
-            print(f"poketmon is {self.wild_pokemons[2]}")
+            print(f"poketmon is {self.wild_pokemons[2][0]}")
 
         elif random_number == 4:
-            print(f"poketmon is {self.wild_pokemons[3]}")
+            print(f"poketmon is {self.wild_pokemons[3][0]}")
 
 
-
+        #간단한 배틀 화면 구현 및 전투 로직 구현, 불 > 풀 , 전기 = 불, 물> 불, 전기 > 물 , 물 = 풀 등의 로직으로 전투 구현, 
+        #hp = 0 -- > 플레이어 hp -1 
         #text line
     
 
