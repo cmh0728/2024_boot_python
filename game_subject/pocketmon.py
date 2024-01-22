@@ -9,7 +9,6 @@ class Pokemon:
         self.type = type
         self.health = health
         self.attack = attack
-        self.player_health = 3
 
     def attack(self, other):
         other.health -= self.attack
@@ -25,19 +24,23 @@ class pocketmon_game():
         self.dt = 0
         self.waiting = True
         self.total_movement = 0  # 플레이어의 총 이동 거리를 추적하고, 전투상황 발생
+        self.player_health = 3
+
 
         #player의 포켓몬 >> 피카츄 
-        self.pikachu = Pokemon("Pikachu", ["Electric"], 100, 20)
+        self.pikachu = ["pikachu","Electric",100,20]
 
         #이름 타입, 체력, 공격력 ( 뒤 두개 옵션은 일단은 동일하게 세팅 )
-        self.bulbasaur = Pokemon("Bulbasaur", ["Grass", "Poison"], 100, 20)
-        self.charmander = Pokemon("Charmander", ["Fire"], 100, 20)
-        self.squirtle = Pokemon("Squirtle", ["Water"], 100, 20)
-        self.caterpie = Pokemon("Caterpie", ["Bug", "Grass"], 100, 20)
-     
+        bulbasaur = ["Bulbasaur", "Grass",  100, 20]
+        charmander = ["Charmander", "Fire", 100, 20]
+        squirtle = ["Squirtle", "Water", 100, 20]
+        caterpie = ["Caterpie", "Grass", 100, 20]
+        #포켓몬 추가 란
+        self.wild_pokemons = [bulbasaur, charmander, squirtle, caterpie]
+        self.len_of_poketmon = len(self.wild_pokemons)
 
 
-        self.pokemons = [self.bulbasaur, self.charmander, self.squirtle, self.caterpie]
+
     def first_page(self):
         self.screen.fill("black")  # 배경 색
         self.start_image = pygame.image.load('start_poketmon.jpg')
@@ -45,7 +48,7 @@ class pocketmon_game():
 
         self.screen.blit(self.start_image, (0, 0))
         # self.draw_text("Welcome to the Pocketmon game!", 80, self.screen.get_width() / 2, self.screen.get_height() / 4)
-        self.draw_text("Press 'F2' key to know 'How to play '           Press 'F1' key to start the game", 45, self.screen.get_width() / 2, self.screen.get_height() * 8 / 9)
+        self.draw_text("Press 'F1' key to start the game                Press 'F2' key to know 'How to play '", 45, self.screen.get_width() / 2, self.screen.get_height() * 8 / 9)
         # self.draw_text("Press 'F1' key to start the game", 35, self.screen.get_width() / 2, self.screen.get_height() / 2)
 
         pygame.display.flip()
@@ -126,7 +129,7 @@ class pocketmon_game():
                     self.waiting = False  #대기 루프 탈출 trigger
                     return prev_screen
                 if keys[pygame.K_1]: # 전투옵션(1번을 선택ㅈ)
-                    self.random_number = random.randint(1, 5)
+                    self.random_number = random.randint(1, self.len_of_poketmon) #포켓몬 수 인덱스로 제한
                     self.battle_figth_option(self.random_number)
                     # print(random_number)
                     # print(self.pokemons[1])
@@ -134,27 +137,45 @@ class pocketmon_game():
     def battle_figth_option(self,random_number):
         self.screen.fill("white")  # 배경 색
         self.battle_start_origin = pygame.image.load('battle_start.png')
+        self.fight_prev_screen = self.screen.copy() #첫 배틀 화면을 copy
         self.battle_start = pygame.transform.scale(self.battle_start_origin, (self.screen.get_width(), self.screen.get_height()))
 
         self.screen.blit(self.battle_start, (0, 0))
-        basic_battle_screen = self.screen.copy()
-        
+
+        print(random_number)
+
+        if random_number == 1:
+            print(f"poketmon is {self.wild_pokemons[0]}")
+        elif random_number == 2:
+            print(f"poketmon is {self.wild_pokemons[1]}")
+
+        elif random_number == 3:
+            print(f"poketmon is {self.wild_pokemons[2]}")
+
+        elif random_number == 4:
+            print(f"poketmon is {self.wild_pokemons[3]}")
+
+
+
         #text line
+    
 
         pygame.display.flip()
 
         self.waiting = True
         while self.waiting:
-
             for event in pygame.event.get():
 
                 if event.type == pygame.QUIT:
                     pygame.quit()
                     sys.exit()
                 keys = pygame.key.get_pressed()
-                if keys[pygame.K_F2]:  #탈출옵션
+                if keys[pygame.K_2]:  #탈출옵션
                     pass
-                if keys[pygame.K_F1]: # 전투옵션
+                if keys[pygame.K_1]: # 전투옵션
+                    # print(self.pikachu)
+                    # print(self.len_of_poketmon)
+                    # print(self.wild_pokemons)
                     pass
 
         
@@ -205,13 +226,14 @@ class pocketmon_game():
             self.dt = self.clock.tick(60) / 1000
 
             # 무작위 전투 발생조건(픽셀)
-            if self.total_movement >= random.randint(100, 500):  # 픽셀미터 단위 난수 추첨
-                # print("전투 시작!")
-                # 전투 시작 전의 화면을 저장합니다.
-                self.prev_screen = self.screen.copy()
-                self.battle_option(self.prev_screen)
-                self.total_movement = 0  # 전투 후 이동 거리를 초기화합니다.
-
+            if self.player_health >= 1 : 
+                if self.total_movement >= random.randint(100, 500):  # 픽셀미터 단위 난수 추첨
+                    # print("전투 시작!")
+                    # 전투 시작 전의 화면을 저장합니다.
+                    self.prev_screen = self.screen.copy()
+                    self.battle_option(self.prev_screen)
+                    self.total_movement = 0  # 전투 후 이동 거리를 초기화합니다.
+            else : self.game_over()
         pygame.quit()
 
 
