@@ -130,17 +130,21 @@ class pocketmon_game():
                     return prev_screen
                 if keys[pygame.K_1]: # 전투옵션(1번을 선택ㅈ)
                     self.random_number = random.randint(1, self.len_of_poketmon) #포켓몬 수 인덱스로 제한
-                    self.battle_figth_option(self.random_number)
+                    self.battle_figth_option(self.random_number,prev_screen) #이전 이동화면으로 
                     # print(random_number)
                     # print(self.pokemons[1])
 
-    def battle_figth_option(self,random_number):
+    def battle_figth_option(self,random_number,prev_screen):
         self.screen.fill("white")  # 배경 색
         self.battle_start_origin = pygame.image.load('battle_start.png')
         self.fight_prev_screen = self.screen.copy() #첫 배틀 화면을 copy
         self.battle_start = pygame.transform.scale(self.battle_start_origin, (self.screen.get_width(), self.screen.get_height()))
 
         self.screen.blit(self.battle_start, (0, 0))
+        
+        self.draw_text("cannot fight yet", 45, self.screen.get_width() / 2, self.screen.get_height() * 7.5 / 9)
+        self.draw_text("Press 'ESC' key to move previous screen", 45, self.screen.get_width() / 2, self.screen.get_height() * 8.3 / 9)
+
 
         print(random_number)
 
@@ -167,7 +171,7 @@ class pocketmon_game():
         self.waiting = True
         while self.waiting:
             for event in pygame.event.get():
-
+                
                 if event.type == pygame.QUIT:
                     pygame.quit()
                     sys.exit()
@@ -179,6 +183,11 @@ class pocketmon_game():
                     # print(self.len_of_poketmon)
                     # print(self.wild_pokemons)
                     pass
+                if keys[pygame.K_ESCAPE]: 
+                    self.screen.blit(self.prev_screen, (0, 0))
+                    pygame.display.flip()
+                    self.waiting = False
+
 
         
     def run_game(self):
