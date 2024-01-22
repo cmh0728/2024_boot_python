@@ -131,7 +131,7 @@ class pocketmon_game():
                     self.waiting = False  #대기 루프 탈출 trigger
                     return prev_screen
                 if keys[pygame.K_1]: # 전투옵션(1번을 선택ㅈ)
-                    self.random_number = random.randint(1, self.len_of_poketmon) #포켓몬 수 인덱스로 제한
+                    self.random_number = random.randint(1, self.len_of_poketmon*2 -1) #포켓몬 수 인덱스로 제한
                     self.battle_figth_option(self.random_number,prev_screen) #이전 이동화면으로 
                     # print(random_number)
                     # print(self.pokemons[1])
@@ -144,6 +144,7 @@ class pocketmon_game():
 
         self.screen.blit(self.battle_start, (0, 0))
         
+
         self.draw_text("cannot fight yet", 45, self.screen.get_width() / 2, self.screen.get_height() * 7.5 / 9)
         self.draw_text("Press 'ESC' key to move previous screen", 45, self.screen.get_width() / 2, self.screen.get_height() * 8.3 / 9)
 
@@ -152,6 +153,7 @@ class pocketmon_game():
 
         # random_number = 2
         if random_number == 1:
+            
             print(f"poketmon is {self.wild_pokemons[0][0]}")
             self.bulbassur_origin = pygame.image.load('bulbassur.png')
             self.bulbassur_image = pygame.transform.scale(self.bulbassur_origin, (self.screen.get_width()/3, self.screen.get_height()/3))
@@ -173,7 +175,29 @@ class pocketmon_game():
 
             self.screen.blit(self.bulbassur_image, self.wild_poketmon_pos)
 
-        elif random_number == 4: # muche >> gameover
+        if random_number == 4:
+            print(f"poketmon is {self.wild_pokemons[0][0]}")
+            self.bulbassur_origin = pygame.image.load('bulbassur.png')
+            self.bulbassur_image = pygame.transform.scale(self.bulbassur_origin, (self.screen.get_width()/3, self.screen.get_height()/3))
+
+            self.screen.blit(self.bulbassur_image, self.wild_poketmon_pos)
+
+
+        elif random_number == 5:
+            print(f"poketmon is {self.wild_pokemons[1][0]}")
+            self.bulbassur_origin = pygame.image.load('charmander.png')
+            self.bulbassur_image = pygame.transform.scale(self.bulbassur_origin, (self.screen.get_width()/3, self.screen.get_height()/3))
+
+            self.screen.blit(self.bulbassur_image, self.wild_poketmon_pos)
+
+        elif random_number == 6:
+            print(f"poketmon is {self.wild_pokemons[2][0]}")
+            self.bulbassur_origin = pygame.image.load('squirtle.png')
+            self.bulbassur_image = pygame.transform.scale(self.bulbassur_origin, (self.screen.get_width()/3, self.screen.get_height()/3))
+
+            self.screen.blit(self.bulbassur_image, self.wild_poketmon_pos)
+
+        elif random_number == 7: # muche >> gameover
             print(f"poketmon is {self.wild_pokemons[3][0]}")
             self.bulbassur_origin = pygame.image.load('muche.png')
             self.bulbassur_image = pygame.transform.scale(self.bulbassur_origin, (self.screen.get_width()/3, self.screen.get_height()/3))
