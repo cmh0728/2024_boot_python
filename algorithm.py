@@ -1,16 +1,16 @@
 import sys
 input = sys.stdin.readline
 
-n,m = map(int,input().split())
-num_list = list(map(int,input().split()))
-pre_sum = [0]
+def fibonachi(n):
+    dp = [0]*(n+1)
+    if n == 1 or n == 2:
+        return 1
+    else:
+        dp[1] = 1
+        dp[2] = 1
+        for i in range(3,n+1):
+            dp[i] = dp[i-1] + dp[i-2]
+        return dp[n]
 
-for num in num_list:
-    pre_sum.append(pre_sum[-1] + num)
-# print(pre_sum)
-cnt = 0
-for i in range(1,n+1):
-    for j in range(i):
-        if m == pre_sum[i] - pre_sum[j]:
-            cnt +=1
-print(cnt)
+print(f"답 : {fibonachi(31)}")
+    
