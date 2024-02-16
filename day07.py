@@ -53,3 +53,7 @@ g1.name = "잉어킹"
 print(g1)
 print(c1)
 print(g1+c1)
+
+
+
+# 과제 : > 오늘 배운것을 적용해서 모듈로 import하기 
